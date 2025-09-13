@@ -1,0 +1,280 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Cart - GoElectric</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md px-6 py-3">
+    <div class="flex justify-between items-center">
+      <a href="{{ url_for('dashboard') }}" class="flex flex-col">
+        <div class="flex items-center space-x-2">
+          <img src="{{ url_for('static', filename='IMG_go electric-logo.png') }}" class="w-6 h-6 text-green-600">
+          <span class="font-bold text-lg">Go Electric</span>
+        </div>
+        <small class="text-xs text-gray-500">Electrifying a greener earth</small>
+      </a>
+      <div class="flex items-center space-x-4">
+        <a href="{{ url_for('dashboard') }}" class="relative bg-gray-100 p-2 rounded-full hover:bg-gray-200">
+          <i class="fas fa-home text-gray-700"></i>
+        </a>
+        <span class="hidden sm:inline text-sm text-gray-600">
+          Welcome back, <strong>{{ session.get('full_name', 'User') }}</strong>
+        </span>
+        <img src="{{ session.get('picture', url_for('static', filename='.png')) }}" 
+             alt="Profile"
+             class="w-10 h-10 rounded-full object-cover border border-gray-300">
+      </div>
+  </nav>
+  <div class="overflow-hidden whitespace-nowrap bg-green-700 text-black py-2">
+  <p id="marquee-text" class="inline-block font-bold whitespace-nowrap animate-marquee">
+    🚀 Welcome to GoElectric! Big discounts this week ⚡
+  </p>
+</div>
+
+<script>
+  // Messages to rotate
+  const messages = [
+    "🛒 Bright just purchased an EV Vehicle 🚗",
+    "⚡ Miguel just purchased an EV Generator 🔋",
+    "🔋 Sarah just ordered a Solar Battery Pack ☀️",
+    "🚗 James just got a GoElectric EV Car 🚀",
+    "🚴 Free delivery available nationwide 🌍"
+  ];
+
+  let index = 0;
+  let marquee = document.getElementById("marquee-text");
+
+  function changeMessage() {
+    // Reset animation by cloning node
+    const newText = marquee.cloneNode(true);
+    newText.textContent = messages[index];
+    marquee.parentNode.replaceChild(newText, marquee);
+
+    // Update reference
+    marquee = newText;
+
+    // Go to next message
+    index = (index + 1) % messages.length;
+  }
+
+  // Wait 7s after the welcome message, then start cycling purchases
+  setTimeout(() => {
+    changeMessage(); // first purchase comes in
+    setInterval(changeMessage, 7000); // continue looping
+  }, 7000);
+</script>
+
+<style>
+@keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+  display: inline-block;
+  min-width: 100%;
+  animation: marquee 10s linear infinite;
+}
+</style>
+  
+  <main class="max-w-7xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-6">All <span class="text-green-600">CART</span></h2>
+    
+    <!-- Cart Table -->
+    <div class="overflow-x-auto">
+      <table id="cart-table" class="min-w-full bg-white shadow rounded-lg">
+        <thead class="bg-gray-50">
+          <tr>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Products</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Price</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Quantity</th>
+            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700">Subtotal</th>
+            <th class="px-6 py-3"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          {% if cart and cart|length > 0 %}
+            {% for item in cart %}
+              {% set subtotal = item.price * (item.quantity or 0) %}
+              <tr class="hover:bg-gray-50" data-id="{{ item.id }}">
+                <td class="px-6 py-4 flex items-center space-x-4">
+                  <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" class="w-20 h-20 object-cover rounded">
+                  <div>
+                    <h4 class="font-semibold">{{ item.name }}</h4>
+                  </div>
+                </td>
+                <td class="px-6 py-4">$ {{ "%.2f"|format(item.price) }}</td>
+                <td class="px-6 py-4 quantity">
+                  <div class="flex items-center space-x-2">
+                    <button class="decrement-btn px-2 py-1 bg-gray-200 rounded" data-id="{{ item.id }}">-</button>
+                    <span class="font-semibold">{{ item.quantity or 0 }}</span>
+                    <button class="increment-btn px-2 py-1 bg-gray-200 rounded" data-id="{{ item.id }}">+</button>
+                  </div>
+                </td>
+                <td class="px-6 py-4 font-semibold subtotal">$ {{ "%.2f"|format(subtotal) }}</td>
+                <td class="px-6 py-4">
+                  <button class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 remove-btn" data-id="{{ item.id }}">
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
+            <tr>
+              <td colspan="5" class="text-center py-6 text-gray-500 font-medium">Your cart is empty.</td>
+            </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="order-summary p-4 border rounded-lg bg-gray-50 mt-6">
+      <h3 class="font-semibold text-lg mb-4">Order Summary</h3>
+      {% if cart and cart|length > 0 %}
+        <div class="space-y-2">
+          {% set total = 0 %}
+          {% for item in cart %}
+            {% set total = total + item.price * (item.quantity or 0) %}
+            <div class="flex justify-between">
+              <span>{{ item.name }} x {{ item.quantity or 0 }}</span>
+              <span>$ {{ "%.2f"|format(item.price * (item.quantity or 0)) }}</span>
+            </div>
+          {% endfor %}
+        </div>
+        <hr class="my-3">
+        <div class="flex justify-between font-bold text-lg">
+          <span>Total</span>
+          <span id="total">$ {{ "%.2f"|format(total) }}</span>
+        </div>
+        <a href="https://t.me/Go_Electric" target="_blank">
+          <button class="mt-4 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+            Checkout
+          </button>
+        </a>
+      {% else %}
+        <p>Your cart is empty.</p>
+      {% endif %}
+    </div>
+  </main>
+
+  
+  <footer class="bg-gradient-to-b from-gray-900 to-green-900 text-white py-10 mt-8">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2">
+          <img src="{{ url_for('static', filename='IMG_go electric-logo.png') }}" class="w-6 h-6 text-green-600">
+          <span class="font-bold text-lg">Go Electric</span>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="font-bold mb-3">Vehicles</h5>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-green-400">Model S Elite</a></li>
+          <li><a href="#" class="hover:text-green-400">Model X Pro</a></li>
+          <li><a href="#" class="hover:text-green-400">Model R Sport</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="font-bold mb-3">Support</h5>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-green-400">Customer Service</a></li>
+          <li><a href="#" class="hover:text-green-400">Charging Network</a></li>
+          <li><a href="#" class="hover:text-green-400">Warranty</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="font-bold mb-3">Contact</h5>
+        <p class="text-sm"><i class="fab fa-telegram mr-2"></i> +49 163 9553347</p>
+        <p class="text-sm"><i class="fas fa-envelope mr-2"></i> goelectric001@gmail.com</p>
+      </div>
+
+    </div>
+    <div class="text-center text-sm text-gray-300 mt-6">
+      © 2025 GoElectric, All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // ✅ Update order summary dynamically
+    function updateOrderSummary() {
+      let total = 0;
+      document.querySelectorAll('#cart-table tbody tr').forEach(row => {
+        const subtotalEl = row.querySelector('.subtotal');
+        if (subtotalEl) {
+          let subtotal = parseFloat(subtotalEl.textContent.replace('$','')) || 0;
+          total += subtotal;
+        }
+      });
+      const totalEl = document.getElementById('total');
+      if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+    }
+
+    // ✅ Update cart item on increment/decrement
+    function updateCartItem(productId, action) {
+      fetch('/update_cart', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: parseInt(productId), action: action})
+      })
+      .then(res => res.json())
+      .then(data => refreshCart(data));
+    }
+
+    // ✅ Remove item from cart
+    function removeCartItem(productId) {
+      fetch('/remove_from_cart', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({id: parseInt(productId)})
+      })
+      .then(res => res.json())
+      .then(data => refreshCart(data));
+    }
+
+    // ✅ Refresh cart table + summary
+    function refreshCart(data) {
+      const tableBody = document.querySelector('#cart-table tbody');
+      if (data.cart && data.cart.length > 0) {
+        data.cart.forEach(item => {
+          const row = document.querySelector(`#cart-table tbody tr[data-id='${item.id}']`);
+          if (row) {
+            row.querySelector('.quantity span').textContent = item.quantity;
+            row.querySelector('.subtotal').textContent = `$${(item.price * item.quantity).toFixed(2)}`;
+          }
+        });
+      } else {
+        tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-gray-500 font-medium">Your cart is empty.</td></tr>`;
+      }
+      updateOrderSummary();
+    }
+
+    // ✅ Event listeners for increment/decrement/remove
+    document.querySelectorAll('.increment-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateCartItem(btn.dataset.id, 'increment'));
+    });
+
+    document.querySelectorAll('.decrement-btn').forEach(btn => {
+      btn.addEventListener('click', () => updateCartItem(btn.dataset.id, 'decrement'));
+    });
+
+    document.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', () => removeCartItem(btn.dataset.id));
+    });
+
+    // ✅ Trigger total calculation immediately on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateOrderSummary();
+    });
+  </script>
+</body>
+</html>

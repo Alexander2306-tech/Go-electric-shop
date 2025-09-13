@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <title>Go Electric Homes</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light px-4 py-2">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="{{ url_for('static', filename='IMG_go electric-logo.png') }}" alt="Logo" style="height: 40px; width: auto; margin-right: 10px;">
+      <span class="font-weight-bold">Go Electric</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item">
+          <a class="btn btn-success ml-3" href="https://t.me/Go_Electric">See Homes</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Marquee -->
+  <div class="overflow-hidden bg-success text-white py-2">
+    <p id="marquee-text" class="d-inline-block font-weight-bold animate-marquee">
+      🚀 Welcome to GoElectric! Big discounts this week ⚡
+    </p>
+  </div>
+
+  <style>
+    @keyframes marquee {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      display: inline-block;
+      white-space: nowrap;
+      min-width: 100%;
+      animation: marquee 10s linear infinite;
+    }
+  </style>
+
+  <script>
+    const messages = [
+      "🛒 Bright just purchased an EV Vehicle 🚗",
+      "⚡ Miguel just purchased an EV Generator 🔋",
+      "🔋 Sarah just ordered a Solar Battery Pack ☀️",
+      "🚗 James just got a GoElectric EV Car 🚀",
+      "🚴 Free delivery available nationwide 🌍"
+    ];
+
+    let index = 0;
+    let marquee = document.getElementById("marquee-text");
+
+    function changeMessage() {
+      const newText = marquee.cloneNode(true);
+      newText.textContent = messages[index];
+      marquee.parentNode.replaceChild(newText, marquee);
+      marquee = newText;
+      index = (index + 1) % messages.length;
+    }
+
+    setTimeout(() => {
+      changeMessage();
+      setInterval(changeMessage, 7000); // cycle every 7s
+    }, 7000);
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero d-flex align-items-center" style="height: 50vh; background: linear-gradient(to bottom,#213045,#166534);">
+    <div class="container-fluid px-0 h-100">
+      <div class="row no-gutters h-100">
+        <div class="col-md-6 d-flex align-items-center" style="background: linear-gradient(135deg,#213045,#166534); padding: 40px;">
+          <div class="text-white">
+            <h1 class="font-weight-bold">Smart Inverted Houses with Alexa Integration</h1>
+            <p class="lead">Revolutionary energy-efficient homes that flip conventional design upside down. Complete with Amazon Alexa voice control for the ultimate smart living experience.</p>
+          </div>
+        </div>
+        <div class="col-md-6 h-100">
+          <img src="{{ url_for('static', filename='first house.png') }}" alt="Smart House" class="img-fluid w-100 h-100" style="object-fit: cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h2>Why Choose Inverted Houses?</h2>
+      <p class="text-muted">Innovative design meets smart technology for sustainable living</p>
+    </div>
+  </section>
+
+  <!-- Advanced Technology -->
+  <section class="py-5 bg-light text-center">
+    <div class="container">
+      <h2>Advanced Technology</h2>
+      <p class="text-muted">Innovation that drives the future</p>
+      <div class="row">
+        <div class="col-md-3">
+          <i class="fas fa-robot fa-2x text-primary mb-2"></i>
+          <h5>Autopilot</h5>
+          <p>Advanced self-driving capabilities with continuous updates</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-bolt fa-2x text-success mb-2"></i>
+          <h5>Fast Charging</h5>
+          <p>Ultra-fast charging technology for minimal downtime</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-tachometer-alt fa-2x text-danger mb-2"></i>
+          <h5>Performance</h5>
+          <p>Instant torque and acceleration that exceeds expectations</p>
+        </div>
+        <div class="col-md-3">
+          <i class="fas fa-leaf fa-2x text-success mb-2"></i>
+          <h5>Sustainable</h5>
+          <p>Zero emissions and environmentally conscious design</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Models -->
+  <section class="py-5">
+    <div class="container">
+      <h2>Featured Models</h2>
+      <p class="text-muted">Explore our range of inverted houses</p>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card shadow-sm mb-4">
+            <img src="{{ url_for('static', filename='second house.png') }}" class="card-img-top" alt="Model S Elite">
+            <div class="card-body">
+              <h5 class="card-title">Model S Elite</h5>
+              <p class="card-text">Premium luxury sedan with 500+ mile range</p>
+              <p class="text-success font-weight-bold">Starting at $79,990</p>
+              <a href="#" class="btn btn-success btn-block">View Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm mb-4">
+            <img src="{{ url_for('static', filename='family inverted.png') }}" class="card-img-top" alt="Family Inverted">
+            <div class="card-body">
+              <h5 class="card-title">Family Inverted</h5>
+              <p class="card-text">Spacious 2,400 sq ft design for growing families</p>
+              <p class="text-success font-weight-bold">$459K</p>
+              <a href="#" class="btn btn-success btn-block">View Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card shadow-sm mb-4">
+            <img src="{{ url_for('static', filename='luxury inverted.png') }}" class="card-img-top" alt="Luxury Inverted">
+            <div class="card-body">
+              <h5 class="card-title">Luxury Inverted</h5>
+              <p class="card-text">Premium 3,600 sq ft with advanced smart features</p>
+              <p class="text-success font-weight-bold">$699K</p>
+              <a href="#" class="btn btn-success btn-block">View Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta text-white text-center py-5" style="background:#16A34A">
+    <div class="container">
+      <h2>Ready to Live Inverted?</h2>
+      <p>Schedule a test drive today and experience the future of smart living</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-white text-center py-4" style="background: linear-gradient(to bottom, #213045, #166534);">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mb-4 d-flex align-items-center">
+          <img src="{{ url_for('static', filename='IMG_go electric-logo.png') }}" alt="Go Electric Logo" style="height: 50px; width: auto; margin-right: 10px;">
+          <p class="mb-0 font-weight-bold">Go Electric</p>
+        </div>
+        <div class="col-md-3">
+          <h5>Vehicles</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Model S Elite</a></li>
+            <li><a href="#" class="text-white">Model X Pro</a></li>
+            <li><a href="#" class="text-white">Model R Sport</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Support</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Customer Service</a></li>
+            <li><a href="#" class="text-white">Charging Network</a></li>
+            <li><a href="#" class="text-white">Warranty</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h5>Contact</h5>
+          <p><i class="fab fa-telegram mr-2"></i> +49 163 9553347</p>
+          <p><i class="fas fa-envelope mr-2"></i> goelectric001@gmail.com</p>
+        </div>
+      </div>
+      <div class="text-center mt-3">
+        © 2025 GoElectric, All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

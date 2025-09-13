@@ -1,0 +1,170 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+Home - Go electric
+{% endblock %}
+
+{% block content %}
+<header>
+  <div class="container">
+    <h1>Power Your Future With Electricity</h1>
+    <p>
+      GoElectric, Inc. is a Germany company that is heavily into a help finance business focused on electric vehicles, 
+      energy generation and storage, and artificial intelligence. 
+      It’s known for its wide range of help to offer finance electric cars, solar panels and battery storage solutions 
+      towards achieving a greener ecosystem prioritizing sustainability and minimizing harm to the natural world.
+      The company was founded in 2007 and is headquartered in Wolfburg, Germany.
+    </p>
+  </div>
+</header>
+
+<!-- 🔔 Marquee notification bar -->
+<div class="overflow-hidden whitespace-nowrap bg-green-700 py-2">
+  <p id="marquee-text" class="inline-block animate-marquee font-bold text-black whitespace-nowrap">
+    🚀 Welcome to GoElectric! Big discounts this week ⚡| 🚀 Fred Just bought a new EV! ⚡
+  </p>
+</div>
+
+
+<main class="container mt-5">
+  <h2 class="text-center">Our EVs Solutions</h2>
+  <p class="text-center">
+    Choose from our comprehensive range of electric products designed for a sustainable future
+  </p>
+  <div class="collage text-center">
+    <img src="{{ url_for('static', filename='car.jpg') }}" alt="Car Image">
+    <img src="{{ url_for('static', filename='generator.jpg') }}" alt="Generator Image">
+    <img src="{{ url_for('static', filename='aircraft.jpg') }}" alt="Aircraft Image">
+    <img src="{{ url_for('static', filename='boat.jpg') }}" alt="Boat Image">
+  </div>
+</main>
+
+<section class="cta py-5">
+  <div class="container">
+    <h2 class="text-center">Ready to Go Electric?</h2>
+    <p class="subtitle text-center">
+      Complete our questionnaire to begin your journey. Our team will review your application and send approval via email.
+    </p>
+
+    <div class="row text-center steps mt-5">
+      <!-- Step 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="icon" style="font-size: 2em;">📝</div>
+        <strong>1. Complete Form</strong>
+        <p>Fill out our comprehensive questionnaire</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="icon" style="font-size: 2em;">🔍</div>
+        <strong>2. Admin Review</strong>
+        <p>Our team evaluates your application</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="icon" style="font-size: 2em;">✉️</div>
+        <strong>3. Email Approval</strong>
+        <p>Receive approval notification via email</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why py-5">
+  <div class="container">
+    <h2 class="text-center">Why Choose GoElectric?</h2>
+    <p class="subtitle text-center mb-4">
+      Leading the charge in sustainable electric solutions
+    </p>
+
+    <div class="row text-center">
+      <div class="col-md-3 mb-4">
+        <div class="icon" style="font-size: 2em;">🌱</div>
+        <strong>100% Eco-Friendly</strong>
+        <p>Zero emissions, maximum impact on environmental sustainability</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="icon" style="font-size: 2em;">🏅</div>
+        <strong>Premium Quality</strong>
+        <p>Industry-leading technology and superior build quality</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="icon" style="font-size: 2em;">🎧</div>
+        <strong>24/7 Support</strong>
+        <p>Round-the-clock customer service and technical assistance</p>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="icon" style="font-size: 2em;">🛡️</div>
+        <strong>Warranty Protection</strong>
+        <p>Comprehensive warranty coverage on all electric products</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+<script>
+  // 🔔 Messages to rotate in the marquee
+  const messages = [
+    "🛒 Catyline just purchased an EV Vehicle 🚗",
+    "⚡ Geneva just purchased an EV Generator 🔋",
+    "🔋 Sarah just ordered a Solar Battery Pack ☀️",
+    "🚗 Joey just got a GoElectric EV Car 🚀",
+    "🚗 Jeremy just got a GoElectric EV Car 🚀",
+    "🚴 Free delivery available nationwide 🌍"
+  ];
+
+  let index = 0;
+  let marquee = document.getElementById("marquee-text");
+
+  // Function to change the text content
+  function changeMessage() {
+    marquee.textContent = messages[index];
+    index = (index + 1) % messages.length;
+  }
+
+  // Start rotating every 5 seconds
+  setInterval(changeMessage, 5000);
+
+  // 🛒 Add to cart function
+  async function addToCart(productId) {
+    try {
+      const res = await fetch("{{ url_for('add_to_cart') }}", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: JSON.stringify({ id: productId })
+      });
+
+      if (res.status === 401) {
+        window.location.href = "{{ url_for('login') }}";
+        return;
+      }
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        window.location.href = "{{ url_for('cart') }}";
+      } else {
+        alert(data.message || "Failed to add to cart");
+      }
+    } catch (err) {
+      console.error("Add to cart error:", err);
+      alert("Could not add to cart. Try again.");
+    }
+  }
+</script>
+
+<style>
+  @keyframes marquee {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  .animate-marquee {
+    display: inline-block;
+    min-width: 100%;
+    animation: marquee 10s linear infinite;
+  }
+</style>

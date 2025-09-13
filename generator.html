@@ -1,0 +1,373 @@
+<!DOCTYPE html>   
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GoElectric - EVs Generators</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+  <nav class="bg-white shadow-md px-6 py-3">
+    <div class="flex justify-between items-center">
+      
+      <a href="#" class="flex flex-col">
+        <div class="flex items-center space-x-2">
+          <img src="{{ url_for('static', filename='IMG_go electric-logo.png') }}" class="w-6 h-6 text-green-600">
+          <span class="font-bold text-lg">Go Electric</span>
+        </div>
+        <small class="text-xs text-gray-500">Electrifying a greener earth</small>
+      </a>
+
+      <div class="flex items-center space-x-4">
+        
+        <a href="{{ url_for('cart') }}" class="relative bg-gray-100 p-2 rounded-full hover:bg-gray-200">
+          <i class="fas fa-shopping-cart text-gray-700"></i>
+        </a>
+
+        <span class="hidden sm:inline text-sm text-gray-600">
+          Welcome back, <strong>{{ session.get('full_name', 'User') }}</strong>
+        </span>
+
+        <img src="{{ session.get('picture', url_for('static', filename='placeholder.png')) }}" 
+             alt="Profile"
+             class="w-10 h-10 rounded-full object-cover border border-gray-300">
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex flex-1 container mx-auto px-4 py-8 gap-6">
+    
+    <aside class="w-64 hidden lg:block bg-white shadow p-4 rounded-lg h-fit">
+      <div class="space-y-6">
+
+        <div>
+          <h3 class="font-semibold mb-2">Power Output</h3>
+          <div class="space-y-1 text-sm text-gray-600">
+            <label class="block"><input type="checkbox" class="mr-2"> Under 5kW</label>
+            <label class="block"><input type="checkbox" class="mr-2"> 5kW - 10kW</label>
+            <label class="block"><input type="checkbox" class="mr-2"> 10kW - 20kW</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Over 20kW</label>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold mb-2">Fuel Type</h3>
+          <div class="space-y-1 text-sm text-gray-600">
+            <label class="block"><input type="checkbox" class="mr-2"> Gasoline</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Diesel</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Natural Gas</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Propane</label>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold mb-2">Price Range</h3>
+          <div class="space-y-1 text-sm text-gray-600">
+            <label class="block"><input type="checkbox" class="mr-2"> Under $1,000</label>
+            <label class="block"><input type="checkbox" class="mr-2"> $1,000 - $5,000</label>
+            <label class="block"><input type="checkbox" class="mr-2"> $5,000 - $10,000</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Over $10,000</label>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-semibold mb-2">Brand</h3>
+          <div class="space-y-1 text-sm text-gray-600">
+            <label class="block"><input type="checkbox" class="mr-2"> Honda</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Generac</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Champion</label>
+            <label class="block"><input type="checkbox" class="mr-2"> Westinghouse</label>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <section class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+      <!-- 1 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='small gen.png') }}" alt="Honda EU2200i" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Honda EU2200i</h3>
+          <p class="text-xs text-gray-500 mt-0.5">2200W Portable Inverter Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$1,299</span>
+          </div>
+          <button onclick="addToCart({ id:1, name: 'Honda EU2200i', price: 1299, img: '{{ url_for('static', filename='small gen.png') }}', description: '2200W Portable Inverter Generator' })" 
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='big Gen.png') }}" alt="Generac Guardian 22kW" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Generac Guardian 22kW</h3>
+          <p class="text-xs text-gray-500 mt-0.5">22kW Standby Generator with Wi-Fi</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$4,999</span>
+          </div>
+          <button onclick="addToCart({ id:2, name: 'Generac Guardian 22kW', price: 4999, img: '{{ url_for('static', filename='big Gen.png') }}', description: '22kW Standby Generator with Wi-Fi' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='gen 3.png') }}" alt="Westinghouse Wgen7500" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Westinghouse Wgen7500</h3>
+          <p class="text-xs text-gray-500 mt-0.5">7500W Portable Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$899</span>
+          </div>
+          <button onclick="addToCart({ id:3, name: 'Westinghouse Wgen7500', price: 899, img: '{{ url_for('static', filename='gen 3.png') }}', description: '7500W Portable Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='yellow gen.png') }}" alt="Champion 3400" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Champion 3400</h3>
+          <p class="text-xs text-gray-500 mt-0.5">14kW Standby Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$3,799</span>
+          </div>
+          <button onclick="addToCart({ id:4, name: 'Champion 3400', price: 3799, img: '{{ url_for('static', filename='yellow gen.png') }}', description: '14kW Standby Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='kohler.png') }}" alt="Kohler 14RESAL" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Kohler 14RESAL</h3>
+          <p class="text-xs text-gray-500 mt-0.5">3400W Dual Fuel Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$699</span>
+          </div>
+          <button onclick="addToCart({ id:5, name: 'Kohler 14RESAL', price: 699, img: '{{ url_for('static', filename='kohler.png') }}', description: '3400W Dual Fuel Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='799.png') }}" alt="Predator 3500" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Predator 3500</h3>
+          <p class="text-xs text-gray-500 mt-0.5">3500W Super Quiet Inverter Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$799</span>
+          </div>
+          <button onclick="addToCart({ id:6, name: 'Predator 3500', price: 799, img: '{{ url_for('static', filename='799.png') }}', description: '3500W Super Quiet Inverter Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='honda.png') }}" alt="Honda EU2200i" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Honda EU2200i</h3>
+          <p class="text-xs text-gray-500 mt-0.5">2200W Portable Inverter Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$1,199</span>
+          </div>
+          <button onclick="addToCart({ id:7, name: 'Honda EU2200i', price: 1199, img: '{{ url_for('static', filename='honda.png') }}', description: '2200W Portable Inverter Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='22kw.png') }}" alt="Generac Guardian 22kW" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Generac Guardian 22kW</h3>
+          <p class="text-xs text-gray-500 mt-0.5">22kW Standby Generator with Wi-Fi</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$4,899</span>
+          </div>
+          <button onclick="addToCart({ id:8, name: 'Generac Guardian 22kW', price: 4899, img: '{{ url_for('static', filename='22kw.png') }}', description: '22kW Standby Generator with Wi-Fi' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='yamaha.png') }}" alt="Yamaha EF2200iS" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Yamaha EF2200iS</h3>
+          <p class="text-xs text-gray-500 mt-0.5">2200W Portable Inverter Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$1,799</span>
+          </div>
+          <button onclick="addToCart({ id:9, name: 'Yamaha EF2200iS', price: 1799, img: '{{ url_for('static', filename='yamaha.png') }}', description: '2200W Portable Inverter Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='Champion.png') }}" alt="Champion 7500W" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Champion 7500W</h3>
+          <p class="text-xs text-gray-500 mt-0.5">7500W Portable Generator</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$899</span>
+          </div>
+          <button onclick="addToCart({ id:10, name: 'Champion 7500W', price: 899, img: '{{ url_for('static', filename='Champion.png') }}', description: '7500W Portable Generator' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='ecoflow.png') }}" alt="EcoFlow Delta Pro" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">EcoFlow Delta Pro</h3>
+          <p class="text-xs text-gray-500 mt-0.5">3600Wh Solar/AC Portable</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$3,599</span>
+          </div>
+          <button onclick="addToCart({ id:11, name: 'EcoFlow Delta Pro', price: 3599, img: '{{ url_for('static', filename='ecoflow.png') }}', description: '3600Wh Solar/AC Portable' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="bg-white shadow rounded-lg overflow-hidden hover:shadow-lg transition group relative">
+        <button type="button" class="absolute top-3 right-3 bg-white/90 hover:bg-white rounded-full p-2 shadow text-gray-600">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <img src="{{ url_for('static', filename='Super quiet.png') }}" alt="Honda EUi1000 super quiet" class="w-full h-40 object-contain p-4 transition-transform duration-300 group-hover:scale-105">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm md:text-base">Honda EUi1000</h3>
+          <p class="text-xs text-gray-500 mt-0.5">1000W gasoline Inverter</p>
+          <div class="mt-2 flex items-baseline gap-2">
+            <span class="text-green-600 font-bold text-lg">$699</span>
+          </div>
+          <button onclick="addToCart({ id:12, name: 'Honda EUi1000', price: 699, img: '{{ url_for('static', filename='Super quiet.png') }}', description: '1000W gasoline Inverter' })"
+                  class="mt-3 w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
+        </div>
+      </div>
+
+    </section>
+  </div> 
+
+  <footer class="bg-gradient-to-b from-gray-900 to-green-900 text-white py-10 mt-8">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+      
+      <div class="flex items-center space-x-3">
+        <div class="flex items-center space-x-2">
+          <img src="{{ url_for('static', filename='IMG_go electric-logo.png') }}" class="w-6 h-6 text-green-600">
+          <span class="font-bold text-lg">Go Electric</span>
+        </div>
+      </div>
+
+      <div>
+        <h5 class="font-bold mb-3">Vehicles</h5>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-green-400">Model S Elite</a></li>
+          <li><a href="#" class="hover:text-green-400">Model X Pro</a></li>
+          <li><a href="#" class="hover:text-green-400">Model R Sport</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="font-bold mb-3">Support</h5>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#" class="hover:text-green-400">Customer Service</a></li>
+          <li><a href="#" class="hover:text-green-400">Charging Network</a></li>
+          <li><a href="#" class="hover:text-green-400">Warranty</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5 class="font-bold mb-3">Contact</h5>
+        <p class="text-sm"><i class="fab fa-telegram mr-2"></i> +49 163 9553347</p>
+        <p class="text-sm"><i class="fas fa-envelope mr-2"></i> goelectric001@gmail.com</p>
+      </div>
+
+    </div>
+    <div class="text-center text-sm text-gray-300 mt-6">
+      © 2025 GoElectric, All rights reserved.
+    </div>
+  </footer>
+  
+  <script>
+    async function addToCart(product) {
+      try {
+        const res = await fetch("{{ url_for('add_to_cart') }}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body: JSON.stringify(product)
+        });
+
+        if (res.status === 401) {
+          // not logged in — redirect to login
+          window.location.href = "{{ url_for('login') }}";
+          return;
+        }
+
+        const data = await res.json();
+
+        if (data.status === "success") {
+          // go to cart page which will fetch items from session
+          window.location.href = "{{ url_for('cart') }}";
+        } else {
+          alert(data.message || 'Failed to add to cart');
+        }
+      } catch (err) {
+        console.error("Add to cart error:", err);
+        alert('Could not add to cart. Try again.');
+      }
+    }
+  </script>
+
+</body>
+</html>

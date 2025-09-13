@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - GoElectric</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md px-6 py-3">
+    <div class="flex justify-between items-center">
+      <a href="{{ url_for('dashboard') }}" class="flex items-center space-x-2">
+        <i class="fas fa-bolt text-green-600 text-xl"></i>
+        <span class="font-bold text-lg">Go Electric</span>
+      </a>
+      <div class="flex items-center space-x-4">
+        <a href="{{ url_for('dashboard') }}" class="relative bg-gray-100 p-2 rounded-full hover:bg-gray-200">
+          <i class="fas fa-home text-gray-700"></i>
+        </a>
+        <span class="hidden sm:inline text-sm text-gray-600">
+          Welcome, <strong>{{ user.full_name or 'User' }}</strong>
+        </span>
+        <img src="{{ user.picture or url_for('static', filename='placeholder.png') }}" 
+             alt="Profile"
+             class="w-10 h-10 rounded-full object-cover border border-gray-300">
+        </div>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-6">Your <span class="text-green-600">Profile</span></h2>
+
+    <div class="bg-white shadow rounded-lg p-6">
+      <div class="flex flex-col items-center space-y-4">
+        <img src="{{ user.picture or url_for('static', filename='placeholder.png') }}" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover border-2 border-green-600">
+        <h3 class="text-xl font-semibold">{{ user.full_name or 'Not Provided' }}</h3>
+        <p class="text-gray-600"><i class="fas fa-envelope mr-2"></i>{{ user.email or 'Not Provided' }}</p>
+        <p class="text-gray-600"><i class="fas fa-map-marker-alt mr-2"></i>{{ user.current_location or 'Not Provided' }}</p>
+      </div>
+
+      <hr class="my-6">
+
+      <div class="space-y-3">
+        <h4 class="font-semibold text-lg">Account Details</h4>
+        <p><span class="font-semibold">Full Name:</span> {{ user.full_name or 'Not Provided' }}</p>
+        <p><span class="font-semibold">Email:</span> {{ user.email or 'Not Provided' }}</p>
+        <p><span class="font-semibold">Current Location:</span> {{ user.current_location or 'Not Provided' }}</p>
+      </div>
+
+      <div class="mt-6 flex justify-center space-x-4">
+        <a href="{{ url_for('edit_profile') }}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+          Edit Profile
+        </a>
+        <a href="{{ url_for('dashboard') }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">
+          Dashboard
+        </a>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
