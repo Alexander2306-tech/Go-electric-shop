@@ -1,0 +1,252 @@
+/* Reduce navbar height */
+nav.navbar {
+  padding-top: 8px;
+  padding-bottom: 5px;
+  margin-bottom: 0 !important; /* remove gap below navbar */
+  border-bottom: none !important; /* remove thin line */
+  box-shadow: none !important; /* remove any shadow */
+  background-color: white; /* white background for navbar */
+}
+
+/* Make navbar text black */
+nav.navbar .navbar-brand,
+nav.navbar .nav-link,
+nav.navbar .navbar-toggler {
+  color: black !important;
+}
+
+/* Change hover color for navbar links */
+nav.navbar .nav-link:hover {
+  color: #a4d6a7 !important; /* light green hover */
+}
+
+/* Navbar toggler icon color fix for dark theme */
+.navbar-dark .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* Remove container padding inside navbar */
+nav.navbar .container {
+  padding-left: 50px;
+  padding-right: 50px;
+  max-width: 100%; 
+}
+
+/* Brand & nav alignment */
+nav.navbar .navbar-brand,
+nav.navbar .navbar-nav {
+  align-items: center; 
+  margin-left: -10px; 
+  padding-left: 0; 
+  display: flex;
+  height: 100%;
+}
+
+/* Adjust nav links spacing */
+nav.navbar .nav-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Optional: reduce space between brand and nav */
+nav.navbar .navbar-collapse {
+  margin-left: 10px;
+}
+
+/* Ensure header touches navbar */
+nav.navbar + header {
+  margin-top: 0 !important;
+}
+
+/* Header full width under navbar */
+header {
+  background: linear-gradient(to bottom, #213045, #166534);
+  color: white;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 20px 40px;
+  box-sizing: border-box;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  margin-top: 0 !important; /* force remove gap above header */
+}
+
+/* Override any Bootstrap default spacing */
+body, body > nav.navbar, body > header {
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure header touches navbar directly */
+nav.navbar + header {
+  margin-top: 0 !important;
+}
+
+/* Padding inside container to shift text right a bit */
+header .container {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Header buttons */
+header .btn-primary {
+  background-color: white;
+  color: #0e6c31;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+header .btn-primary:hover {
+  background-color: #d6f0d8;
+}
+
+header .btn-secondary {
+  background: linear-gradient(to bottom, #004d3e, #001f3f);
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+header .btn-secondary:hover {
+  background: linear-gradient(to bottom, #006b58, #003366);
+  border-color: #00ffcc;
+}
+
+/* Main content container spacing */
+main.container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+@keyframes marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+  
+}
+#marquee-text {
+  color: black !important;
+}
+
+
+.animate-marquee {
+  display: inline-block;
+  min-width: 100%;
+  animation: marquee 15s linear infinite;
+}
+
+/* Collage images style */
+.collage img {
+  max-width: 100%;
+  height: auto;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+/* Remove background from heading & subtitle inside .cta */
+.cta > .intro {
+  background: none;
+  color: inherit;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.cta > .intro h2 {
+  color: #0e6c31;
+}
+
+.cta > .intro p {
+  color: #333;
+}
+
+/* Keep green background only for the steps list */
+.cta .steps {
+  background-color: #0e6c31;
+  color: white;
+  padding: 40px 0;
+}
+
+.cta .steps h3,
+.cta .steps p {
+  color: white;
+}
+
+.cta .steps .btn.green {
+  background-color: #a4d6a7;
+  color: #0e6c31;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta .steps .btn.green:hover {
+  background-color: #c9edc8;
+}
+
+/* Why Choose GoElectric section */
+.why {
+  padding: 40px 0;
+}
+
+.why h2,
+.why p {
+  color: black;
+}
+
+.why .icon {
+  margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(to bottom, #213045, #166534);
+  color: white;
+  padding: 15px 20px;
+  box-sizing: border-box;
+}
+
+footer .row {
+  justify-content: center;
+}
+
+footer .col-md-3 {
+  text-align: left;
+}
+
+footer .text-center {
+  text-align: center !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  header .btn-secondary {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  
+  header .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .collage img {
+    max-width: 90%;
+    margin: 10px auto;
+    display: block;
+  }
+
+  .steps .icon {
+    font-size: 2.5em !important;
+  }
+}

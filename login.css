@@ -1,0 +1,207 @@
+body {
+  background: linear-gradient(135deg, #99d1c8, #7ee084);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 10px;           /* added padding to prevent edge clipping on mobile */
+  box-sizing: border-box;
+  flex-direction: column;  /* ensure stacking if needed on narrow viewports */
+  overflow-y: auto;        /* allow vertical scrolling if content overflows */
+}
+
+/* Main Login Box */
+.login-container {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(6, 2, 2, 0.53);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;   /* max width for bigger screens */
+  color: black;
+  border: 1px solid rgba(16, 16, 15, 0.3);
+  box-sizing: border-box;
+}
+
+/* Logo Frame */
+.logo-frame {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 15px;
+  border: 3px solid #075d0e34;
+}
+
+.logo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Heading & Subtext */
+.login-container h2 {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: black;
+}
+
+.login-container p {
+  font-size: 12px;
+  margin-bottom: 12px;
+  color: #060707;
+}
+
+/* Input Groups */
+.form-group {
+  margin-bottom: 12px;
+}
+
+/* Labels on top of inputs */
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: black;
+  text-align: left;
+  font-size: 14px;
+}
+
+.form-control {
+  background-color: #f7faf8;
+  border: 2px solid #ebf1eb;
+  border-radius: 30px;
+  color: black;
+  padding: 10px 15px;
+  transition: all 0.3s;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-control::placeholder {
+  color: #c2b1b1;
+}
+
+.form-control:focus {
+  border-color: #086d32;
+  box-shadow: 0 0 10px rgba(9, 189, 105, 0.3);
+  background-color: rgba(239, 239, 232, 0.788);
+}
+
+/* Remember Me + Forgot Password */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+  flex-wrap: wrap;  /* allow wrapping on narrow screens */
+  gap: 8px;
+}
+
+.form-options .remember-me {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #121111;
+}
+
+.form-options .forgot-link {
+  text-decoration: none;
+  color: #0c5f2d;
+  font-weight: 500;
+}
+
+.form-options .forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* Shared Button Style for Login & Sign Up */
+.btn-primary {
+  background-color: transparent;
+  border: 2px solid #0e6c3165;
+  border-radius: 30px;
+  color: #0c0101;
+  padding: 10px 20px;
+  font-weight: 400;
+  transition: all 0.3s;
+  width: 50%;
+  margin: 10px auto 0;
+  display: block;
+  min-width: 150px;   /* prevent too small button on big screens */
+}
+
+.btn-primary:hover {
+  background-color: #e7efea;
+  color: #05401a;
+  transform: translateY(-2px);
+}
+
+/* Google Icon Button */
+.google-icon-only {
+  display: inline-block;
+  background-color: #eaeee7;
+  color: rgb(14, 13, 13);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  font-size: 18px;
+  text-align: center;
+  line-height: 35px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin: 15px auto 10px;
+}
+
+.google-icon-only:hover {
+  background-color: #cecfbd;
+  transform: scale(1.1);
+}
+
+/* Social Icons */
+.social-icons {
+  margin-top: 20px;
+}
+
+.social-icons i {
+  font-size: 20px;
+  color: #06652d;
+  margin: 0 12px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.social-icons i:hover {
+  color: #bdb798;
+  transform: scale(1.2);
+}
+
+/* Responsive Fix */
+@media (max-width: 600px) {
+  .login-container {
+    padding: 20px 15px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .btn-primary {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .google-icon-only {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    line-height: 40px;
+  }
+
+  .form-options {
+    justify-content: center;
+    gap: 12px;
+  }
+}
